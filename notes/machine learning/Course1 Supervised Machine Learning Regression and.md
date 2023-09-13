@@ -174,3 +174,4 @@ J(\vec w,b)&=\frac 1{m}\sum_{i=1}^{m}L\left(f_{\vec w,b}(x^{\left(i\right)}),y^{
 \\&=-\frac 1{m}\sum_{i=1}^{m}\left[y^{(i)}\log \left(f_{\vec w,b}(x^{\left(i\right)})\right)+(1-y^{(i)})\log \left(1-f_{\vec w,b}(x^{\left(i\right)})\right)\right]
 \end{align*}
 $$
+sdfasfdsa
