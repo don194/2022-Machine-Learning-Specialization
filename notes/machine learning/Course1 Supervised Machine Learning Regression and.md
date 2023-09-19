@@ -147,7 +147,9 @@ $$
 ![决策边界](../_resources/8f880dae6e734b6b40c2c2e06611ec79.png)
 ## 3.2 逻辑回归代价函数
 若使用线性回归中的代价函数
-$$J(\vec w,b)=\frac 1{2m} \sum_{i=1}^{m}\left (f_{\vec w,b}\left (\vec x^{(i)}\right) - y^{(i)}\right)^2$$
+$$
+J(\vec w,b)=\frac 1{2m} \sum_{i=1}^{m}\left (f_{\vec w,b}\left (\vec x^{(i)}\right) - y^{(i)}\right)^2
+$$
 会导致代价函数不是一个凸函数，为保证梯度下降法能够寻找出全局最小值，需要重新寻找合适的代价函数。
 >如果不是凸函数，会梯度下降法可能会停在局部最小值的点上
 
@@ -174,4 +176,62 @@ J(\vec w,b)&=\frac 1{m}\sum_{i=1}^{m}L\left(f_{\vec w,b}(x^{\left(i\right)}),y^{
 \\&=-\frac 1{m}\sum_{i=1}^{m}\left[y^{(i)}\log \left(f_{\vec w,b}(x^{\left(i\right)})\right)+(1-y^{(i)})\log \left(1-f_{\vec w,b}(x^{\left(i\right)})\right)\right]
 \end{align*}
 $$
-sdfasfdsa
+## 3.3 梯度下降算法
+与线性回归模型一致，$f_{w,b}$为逻辑回归假设函数
+$$
+w_j= w_j - \alpha \frac {\partial }{\partial w_j}J(\vec w,b)=w_j-\alpha \frac{1}{m} \sum_{i = 1}^{m}\left(f_{w,b}(\vec x^{(i)})-y^{(i)}\right)x^{(i)}_j 
+$$
+$$
+b = b - \alpha \frac {\partial }{\partial b}J(\vec w,b)=b-\alpha \frac{1}{m} \sum_{i = 1}^{m}\left(f_{w,b}(\vec x^{(i)})-y^{(i)}\right) 
+$$
+## 3.4 过拟合与正则化
+### 3.4.1 过拟合问题
+![欠拟合和过拟合](../_resources/34a675f060869b38ef7d76e60947758c.png)
+**欠拟合**：高偏差（high-bias）
+**过拟合**：高方差（high-variance）
+### 3.4.2 解决过拟合的方法
+1.收集更多数据
+2.减少特征数量
+3.正则化
+### 3.4.3 正则化
+**正则化**（regularization）
+当参数过大时进行惩罚，以防止过拟合。正则化的代价函数如下式，$\lambda$为超参数，$\frac\lambda{2m}\sum_{i=1}^mw_j^2$为正则化项。
+$$
+J(\vec w,b)=\frac 1{2m} \sum_{i=1}^{m}\left (f_{\vec w,b}\left (\vec x^{(i)}\right) - y^{(i)}\right)^2+\frac\lambda{2m}\sum_{i=1}^mw_j^2
+$$
+需要合理选择$\lambda$的大小，$\lambda$越大参数$w_j$越小，当$\lambda$过大时参数$w_j$会接近0。
+**用于线性回归的正则化方法**
+代价函数
+$$
+J(\vec w,b)=\frac 1{2m} \sum_{i=1}^{m}\left (f_{\vec w,b}\left (\vec x^{(i)}\right) - y^{(i)}\right)^2+\frac\lambda{2m}\sum_{i=1}^mw_j^2
+$$
+梯度下降算法
+$$
+\begin{align*}
+w_j
+&=w_j-\alpha \left(\frac{1}{m} \sum_{i = 1}^{m}\left(f_{w,b}(\vec x^{(i)})-y^{(i)}\right)x^{(i)}_j+\frac\lambda{m}w_j \right)
+\end{align*}
+$$
+$$
+b = b - \alpha \left(\frac{1}{m} \sum_{i = 1}^{m}\left(f_{w,b}(\vec x^{(i)})-y^{(i)}\right)+\frac\lambda{m}w_j\right)
+$$
+**用于逻辑回归的正则化方法**
+代价函数
+$$
+\begin{align*}
+J(\vec w,b)
+=&-\frac 1{m}\sum_{i=1}^{m}\left[y^{(i)}\log \left(f_{\vec w,b}(x^{\left(i\right)})\right)+(1-y^{(i)})\log \left(1-f_{\vec w,b}(x^{\left(i\right)})\right)\right]\\&+\frac\lambda{2m}\sum_{i=1}^mw_j^2
+\end{align*}
+$$
+
+
+梯度下降算法
+$$
+\begin{align*}
+w_j
+&=w_j-\alpha \left(\frac{1}{m} \sum_{i = 1}^{m}\left(f_{w,b}(\vec x^{(i)})-y^{(i)}\right)x^{(i)}_j+\frac\lambda{m}w_j \right)
+\end{align*}
+$$
+$$
+b = b - \alpha \left(\frac{1}{m} \sum_{i = 1}^{m}\left(f_{w,b}(\vec x^{(i)})-y^{(i)}\right)+\frac\lambda{m}w_j\right)
+$$
